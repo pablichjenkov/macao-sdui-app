@@ -1,28 +1,41 @@
 [versions]
 
+## Kotlin Ecosystem
+kotlinVersion = "2.0.21"
+kotlinxCoroutines = "1.9.0"
+kotlinxDatetime = "0.6.1"
+kotlinxSerialization = "1.7.3"
+dokka = "1.9.10"
+
+## Compose
+composeAndroidCompiler = "1.7.4"
+composeVersion = "1.7.0"
+
+## Android Gradle Plugin
+agp = "8.5.2"
 androidCompileSdk = "34"
 androidTargetSdk = "34"
 androidMinSdk = "26"
+
+## Macao Libs
 macaoAmadeusApi = "0.3.4"
-macaoComponentToolkit = "0.6.11"
+macaoComponentToolkit = "0.7.0"
 macaoAuthFirebase = "0.0.1-dev"
-koinCore = "3.6.0-wasm-alpha2"
-kotlin = "2.0.20"
-agp = "8.1.4"
-composeAndroidCompiler = "1.6.7"
-composePlugin = "1.6.10"
-androidxActivityCompose = "1.9.2"
-kamelImage = "0.9.4"
-kotlinxCoroutines = "1.8.1"
-ktor = "2.3.11"
+
+# Koin
+koinCore = "4.0.0"
+
+## AndroidX
+androidxActivityCompose = "1.9.3"
+
+## Misc
 composeIcons = "1.1.0"
-kotlinxSerialization = "1.6.3"
-kotlinxDatetime = "0.6.0"
-multiplatformSettings = "1.1.1"
-gmazzo = "5.3.5"
-sqldelight = "2.0.2"
-dokka = "1.9.10"
+gmazzo = "5.5.0"
+kamelImage = "1.0.1"
+ktor = "3.0.0"
+multiplatformSettings = "1.2.0"
 realm = "1.12.0"
+sqldelight = "2.0.2"
 
 [libraries]
 
@@ -75,12 +88,12 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinCore" }
 
 [plugins]
 
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-compose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlinVersion" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
+compose = { id = "org.jetbrains.compose", version.ref = "composeVersion" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
 gmazzo = { id = "com.github.gmazzo.buildconfig", version.ref = "gmazzo" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
