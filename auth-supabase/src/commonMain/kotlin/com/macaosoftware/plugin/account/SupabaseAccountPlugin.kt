@@ -43,7 +43,7 @@ class SupabaseAccountPlugin : AccountPlugin {
         return true
     }
 
-    override suspend fun createUserWithEmailAndPassword(signUpRequest: SignUpRequest): MacaoResult<MacaoUser> = try {
+    override suspend fun createUserWithEmailAndPassword(signUpRequest: SignUpRequest): MacaoResult<MacaoUser, SignupError> = try {
 
         supabase.auth.signUpWith(Email) {
             email = "example@email.com"
@@ -58,7 +58,7 @@ class SupabaseAccountPlugin : AccountPlugin {
         MacaoResult.Error(SignupError(errorDescription = ex.message.orEmpty()))
     }
 
-    override suspend fun signInWithEmailAndPassword(signInRequest: SignInRequest): MacaoResult<MacaoUser> = try {
+    override suspend fun signInWithEmailAndPassword(signInRequest: SignInRequest): MacaoResult<MacaoUser, LoginError> = try {
 
         withContext(Dispatchers.Main) {
             withTimeout(15.seconds) {
@@ -106,7 +106,7 @@ class SupabaseAccountPlugin : AccountPlugin {
         MacaoResult.Error(LoginError(errorDescription = ex.message.orEmpty()))
     }
 
-    override suspend fun signInWithEmailLink(signInRequest: SignInRequestForEmailLink): MacaoResult<MacaoUser> = try {
+    override suspend fun signInWithEmailLink(signInRequest: SignInRequestForEmailLink): MacaoResult<MacaoUser, LoginError> = try {
 
         withTimeout(15.seconds) {
             supabase.auth
@@ -150,7 +150,7 @@ class SupabaseAccountPlugin : AccountPlugin {
         MacaoResult.Error(LoginError(errorDescription = ex.message.orEmpty()))
     }
 
-    override suspend fun sendSignInLinkToEmail(emailLinkData: EmailLinkData): MacaoResult<Unit> = try {
+    override suspend fun sendSignInLinkToEmail(emailLinkData: EmailLinkData): MacaoResult<Unit, AccountPluginError> = try {
 
         supabase.auth.verifyEmailOtp(
             type = OtpType.Email.MAGIC_LINK,
@@ -164,7 +164,7 @@ class SupabaseAccountPlugin : AccountPlugin {
         MacaoResult.Error(SignupError(errorDescription = ex.message.orEmpty()))
     }
 
-    override suspend fun getCurrentUser(): MacaoResult<MacaoUser> = try {
+    override suspend fun getCurrentUser(): MacaoResult<MacaoUser, SignupError> = try {
 
         val user = supabase.auth.retrieveUserForCurrentSession(updateSession = true)
         MacaoResult.Success(user.toMacaoUser())
@@ -173,11 +173,11 @@ class SupabaseAccountPlugin : AccountPlugin {
         MacaoResult.Error(SignupError(errorDescription = ex.message.orEmpty()))
     }
 
-    override suspend fun getProviderData(): MacaoResult<ProviderData> {
+    override suspend fun getProviderData(): MacaoResult<ProviderData, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateProfile(displayName: String, photoUrl: String): MacaoResult<MacaoUser> {
+    override suspend fun updateProfile(displayName: String, photoUrl: String): MacaoResult<MacaoUser, SignupError> {
         TODO("Not yet implemented")
     }
 
@@ -189,45 +189,45 @@ class SupabaseAccountPlugin : AccountPlugin {
         facebookLink: String?,
         linkedIn: String?,
         github: String?
-    ): MacaoResult<UserData> {
+    ): MacaoResult<UserData, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateEmail(newEmail: String): MacaoResult<MacaoUser> {
+    override suspend fun updateEmail(newEmail: String): MacaoResult<MacaoUser, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updatePassword(newPassword: String): MacaoResult<MacaoUser> {
+    override suspend fun updatePassword(newPassword: String): MacaoResult<MacaoUser, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun sendEmailVerification(): MacaoResult<MacaoUser> {
+    override suspend fun sendEmailVerification(): MacaoResult<MacaoUser, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun sendPasswordReset(): MacaoResult<MacaoUser> {
+    override suspend fun sendPasswordReset(): MacaoResult<MacaoUser, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteUser(): MacaoResult<Unit> {
+    override suspend fun deleteUser(): MacaoResult<Unit, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun fetchUserData(): MacaoResult<UserData> {
+    override suspend fun fetchUserData(): MacaoResult<UserData, SignupError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun checkAndFetchUserData(): MacaoResult<UserData> {
+    override suspend fun checkAndFetchUserData(): MacaoResult<UserData, SignupError> {
         println("Supabase_checkAndFetchUserData")
         return MacaoResult.Error(SignupError(errorDescription = ""))
     }
 
-    override suspend fun signOut(): MacaoResult<Unit> = try {
+    override suspend fun signOut(): MacaoResult<Unit, SignupError> = try {
         supabase.auth.signOut(SignOutScope.LOCAL)
         MacaoResult.Success(Unit)
     } catch (ex: Exception) {
         ex.printStackTrace()
-        MacaoResult.Error(LoginError(errorDescription = ex.message.orEmpty()))
+        MacaoResult.Error(SignupError(errorDescription = ex.message.orEmpty()))
     }
 
     private fun Email.Result.toMacaoUser(): MacaoUser {
