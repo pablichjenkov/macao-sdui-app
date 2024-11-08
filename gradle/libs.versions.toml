@@ -8,7 +8,7 @@ kotlinxSerialization = "1.7.3"
 dokka = "1.9.10"
 
 ## Compose
-composeAndroidCompiler = "1.7.4"
+composeAndroidCompiler = "1.7.5"
 composeVersion = "1.7.0"
 
 ## Android Gradle Plugin
@@ -20,7 +20,7 @@ androidMinSdk = "26"
 ## Macao Libs
 macaoAmadeusApi = "0.3.4"
 macaoComponentToolkit = "0.7.0"
-macaoAuthFirebase = "0.0.1-dev"
+macaoAuthFirebase = "0.0.2-dev"
 
 # Koin
 koinCore = "4.0.0"
@@ -74,7 +74,6 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ## MacaoSoftware
 amadeus-api = { module = "io.github.pablichjenkov:amadeus-api", version.ref = "macaoAmadeusApi" }
 component-toolkit = { module = "io.github.pablichjenkov:component-toolkit", version.ref = "macaoComponentToolkit" }
-macao-auth-firebase = { module = "io.github.pablichjenkov:macao-auth-firebase", version.ref = "macaoAuthFirebase" }
 
 ## Other Libs
 font-awesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "composeIcons" }

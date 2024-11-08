@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.pablichjenkov"
-version = (findProperty("macao-auth-firebase.version") as? String).orEmpty()
+version = libs.versions.macaoAuthFirebase.get()
 val mavenCentralUser = (findProperty("mavenCentral.user") as? String).orEmpty()
 val mavenCentralPass = (findProperty("mavenCentral.pass") as? String).orEmpty()
 
@@ -55,11 +55,9 @@ publishing {
             version
             artifact(javadocJar)
             pom {
-                val projectGitUrl = "https://github.com/pablichjenkov/macao-sdk"
+                val projectGitUrl = "https://github.com/pablichjenkov/macao-marketplace"
                 name.set(rootProject.name)
-                description.set(
-                    "Compose Multiplatform Application Microframework"
-                )
+                description.set("Firebase Authorization KMP library")
                 url.set(projectGitUrl)
                 inceptionYear.set("2023")
                 licenses {
@@ -94,7 +92,9 @@ tasks.withType<AbstractPublishToMaven>().configureEach {
 }
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        publishLibraryVariants("release", "debug")
+    }
     
     listOf(
         iosX64(),
