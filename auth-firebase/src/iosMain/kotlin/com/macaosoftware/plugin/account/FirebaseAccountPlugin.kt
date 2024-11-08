@@ -5,15 +5,15 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 /**
- * The real implementation of the interface MacaoFirebaseAuthKmpWrapper can be found in
+ * The real implementation of the interface FirebaseAuthKmpSwiftWrapper can be found in
  * the Swift Package hosted at:
  * https://github.com/pablichjenkov/firebase-kmp/blob/main/FirebaseAuthKmp/Sources/FirebaseAuthKmpWrapperImpl.swift
  * */
 class FirebaseAccountPlugin(
-    private val firebaseAuthKmpWrapper: FirebaseAuthKmpSwiftWrapper
+    private val firebaseAuthKmpSwiftWrapper: FirebaseAuthKmpSwiftWrapper
 ) : AccountPlugin {
 
-    private val TAG = "FirebaseAuthPlugin"
+    private val TAG = "FirebaseAccountPlugin"
 
     override suspend fun initialize(): Boolean {
         return true
@@ -22,7 +22,7 @@ class FirebaseAccountPlugin(
     override suspend fun createUserWithEmailAndPassword(signUpRequest: SignUpRequest): MacaoResult<MacaoUser, SignupError> {
 
         return suspendCoroutine { continuation ->
-            firebaseAuthKmpWrapper.createUserWithEmailAndPassword(
+            firebaseAuthKmpSwiftWrapper.createUserWithEmailAndPassword(
                 email = signUpRequest.email,
                 password = signUpRequest.password,
                 onResult = {
@@ -38,7 +38,7 @@ class FirebaseAccountPlugin(
     override suspend fun signInWithEmailAndPassword(signInRequest: SignInRequest): MacaoResult<MacaoUser, LoginError> {
 
         return suspendCoroutine { continuation ->
-            firebaseAuthKmpWrapper.signInWithEmailAndPassword(
+            firebaseAuthKmpSwiftWrapper.signInWithEmailAndPassword(
                 email = signInRequest.email,
                 password = signInRequest.password,
                 onResult = {
@@ -54,7 +54,7 @@ class FirebaseAccountPlugin(
     override suspend fun signInWithEmailLink(signInRequest: SignInRequestForEmailLink): MacaoResult<MacaoUser, LoginError> {
 
         return suspendCoroutine { continuation ->
-            firebaseAuthKmpWrapper.signInWithEmailLink(
+            firebaseAuthKmpSwiftWrapper.signInWithEmailLink(
                 email = signInRequest.email,
                 magicLink = signInRequest.magicLink,
                 onResult = {
